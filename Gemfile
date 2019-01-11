@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-git_source(:github) {|sinatra-cms-app-assessment-v-000| "https://github.com/#{sinatra-cms-app-assessment-v-000}" }
+git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 # gem "rails"
 gem 'sinatra'
