@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   get '/login' do
     if logged_in?
-      redirect '/'
+      redirect '/servers/:slug'
     else
       erb :"/sessions/login"
     end
@@ -31,7 +31,16 @@ class SessionsController < ApplicationController
       session[:manager_id] = @manager.id
       redirect "/"
     else
-      redirect "/login"
+      redirect "/manager_login"
+    end
+  end
+
+  get '/logout' do
+    if logged_in?
+      logout!
+      redirect '/index'
+    else
+      redirect '/index'
     end
   end
 

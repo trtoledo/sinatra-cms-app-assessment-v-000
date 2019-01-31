@@ -1,0 +1,18 @@
+<h2><% @server.username%>`s Show Page</h2>
+<p>
+<h3>Name: <% @server.username%></h3>
+</p>
+<h3>Email: <% @user.email%></h3>
+
+<h3>Shift: <% @server.shift%></h3>
+<% @server.shift = s s.tables.each do |table| %>
+   <li><a href="/tables/<%= table.id %>"> <%= table.id %> </a>
+    
+<% end %>
+
+
+
+<ul>
+<a class="button" href="/logout">Logout</a>
+<a class="button" href="/serverr/:slug/edit">Edit your profile</a>
+</ul>

@@ -4,8 +4,21 @@ class ServersController < ApplicationController
     "List to all servers"
   end
 
-  get '/servers/new' do
+  get '/servers/signup' do
+    # only managers can signup a server
+    erb :'severs/new'
+  end
 
+  post '/servers' do
+    @server = Server.new
+    @server.email = params[:email]
+    @server.username = params[:username]
+    @server.password = params[:password]
+    if @server.save
+      redirect '/login'
+    else
+      erb :'severs/new'
+    end
   end
 
   get '/servers/:slug' do
@@ -31,14 +44,14 @@ class ServersController < ApplicationController
   #   end
   # end
 
-  get '/logout' do
-    if logged_in?
-      logout!
-      redirect '/login'
-    else
-      redirect '/login'
-    end
-  end
+  # get '/logout' do
+  #   if logged_in?
+  #     logout!
+  #     redirect '/login'
+  #   else
+  #     redirect '/login'
+  #   end
+  # end
 
 
 
