@@ -1,4 +1,4 @@
-class CreateServersTable < ActiveRecord::Migration[5.2]
+class CreateServersTable < ActiveRecord::Migration
   def change
     create_table :servers do |t|
       t.string :username

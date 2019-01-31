@@ -1,24 +1,37 @@
 class ServersController < ApplicationController
 
-  get '/servers' do
-    "List to all servers"
-  end
+  # get '/servers' do
+  #   "List of all servers"
+  # end
 
   get '/servers/signup' do
     # only managers can signup a server
-    erb :'severs/new'
+    erb :'servers/new'
   end
 
+  # post '/servers' do
+  #   @server = Server.new
+  #   @server.email = params[:email]
+  #   @server.username = params[:username]
+  #   @server.password = params[:password]
+  #   if @server.save
+  #     redirect '/login'
+  #   else
+  #     erb :'severs/new'
+  #   end
+  # end
+
   post '/servers' do
-    @server = Server.new
-    @server.email = params[:email]
-    @server.username = params[:username]
-    @server.password = params[:password]
-    if @server.save
+    if !params[:username].empty? && !params[:email].empty? && !params[:password].empty?
+      @server = User.new(:username => params[:username], :email => params[:email], :password => params[:password])
+      @server.save
+      session[:server_id] = @server.id #login
+
       redirect '/login'
     else
       erb :'severs/new'
     end
+# binding.pry
   end
 
   get '/servers/:slug' do
