@@ -22,8 +22,9 @@ class ServersController < ApplicationController
   # end
 
   post '/servers' do
+    # binding.pry
     if !params[:username].empty? && !params[:email].empty? && !params[:password].empty?
-      @server = User.new(:username => params[:username], :email => params[:email], :password => params[:password])
+      @server = Server.new(:username => params[:username], :email => params[:email], :password => params[:password])
       @server.save
       session[:server_id] = @server.id #login
 

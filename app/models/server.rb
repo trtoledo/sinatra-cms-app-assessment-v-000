@@ -1,6 +1,6 @@
 class Server < ActiveRecord::Base
   has_secure_password
-  has_one :section
+  has_many :sections
   belongs_to :shift
 
 

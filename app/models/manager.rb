@@ -1,6 +1,6 @@
 class Manager < ActiveRecord::Base
   has_secure_password
-  has_one :shift
+  has_many :shift
 
 
   def slug
