@@ -9,17 +9,6 @@ class ServersController < ApplicationController
     erb :'servers/new'
   end
 
-  # post '/servers' do
-  #   @server = Server.new
-  #   @server.email = params[:email]
-  #   @server.username = params[:username]
-  #   @server.password = params[:password]
-  #   if @server.save
-  #     redirect '/login'
-  #   else
-  #     erb :'severs/new'
-  #   end
-  # end
 
   post '/servers' do
     # binding.pry
