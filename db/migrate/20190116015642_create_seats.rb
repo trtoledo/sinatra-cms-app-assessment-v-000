@@ -1,10 +1,10 @@
-class CreateSeats < ActiveRecord::Migration
+class CreateSeats < ActiveRecord::Migration[5.2]
   def change
     create_table :seats do |t|
       t.integer :position
       t.integer :table_id
 
-      t.timestamps null: false
+      t.timestamps
     end
   end
 end
