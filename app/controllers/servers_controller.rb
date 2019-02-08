@@ -10,8 +10,8 @@ class ServersController < ApplicationController
       redirect "/servers/:slug"
     else
     erb :'servers/new'
+    end
   end
-
 
   post '/servers' do
     # binding.pry
@@ -28,8 +28,10 @@ class ServersController < ApplicationController
   end
 
   get '/servers/:slug' do
+    binding.pry
     @server = Server.find_by_slug(params[:slug])
     erb :"servers/show"
+
   end
 
   # get '/login' do
