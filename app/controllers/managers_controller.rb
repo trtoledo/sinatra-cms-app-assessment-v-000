@@ -2,7 +2,7 @@ class ManagersController < ApplicationController
   get '/managers' do
     "List to all managers"
   end
-
+ 
   get '/managers/new' do
 
   end

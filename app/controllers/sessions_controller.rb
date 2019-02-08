@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     @server = Server.find_by(:username => params[:username])
     if @server && @server.authenticate(params[:password])
       session[:server_id] = @server.id
-      redirect "/"
+      redirect "/servers/:slug"
     else
       redirect "/login"
     end
@@ -38,9 +38,9 @@ class SessionsController < ApplicationController
   get '/logout' do
     if logged_in?
       logout!
-      redirect '/index'
+      redirect '/'
     else
-      redirect '/index'
+      redirect '/'
     end
   end
 

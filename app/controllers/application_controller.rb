@@ -5,7 +5,7 @@ class ApplicationController < Sinatra::Base
     enable :sessions
     set :session_secret, "restaurantservermanagementtool"
   end
-
+ 
   get '/' do
     erb :"/index"
   end

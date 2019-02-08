@@ -17,7 +17,7 @@ class ServersController < ApplicationController
       @server.save
       session[:server_id] = @server.id #login
 
-      redirect '/login'
+      redirect '/servers/:slug'
     else
       erb :'severs/new'
     end
