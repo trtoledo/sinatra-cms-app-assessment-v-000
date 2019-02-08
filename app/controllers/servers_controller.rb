@@ -6,6 +6,9 @@ class ServersController < ApplicationController
 
   get '/servers/signup' do
     # only managers can signup a server
+    if  logged_in?
+      redirect "/servers/:slug"
+    else
     erb :'servers/new'
   end
 
