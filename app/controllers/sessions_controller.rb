@@ -1,17 +1,18 @@
 class SessionsController < ApplicationController
   get '/login' do
     if logged_in?
-      redirect '/servers/:slug'
+      redirect '/servers/#{@server.slug}'
     else
       erb :"/sessions/login"
     end
   end
 
   post '/login' do
+    # binding.pry
     @server = Server.find_by(:username => params[:username])
     if @server && @server.authenticate(params[:password])
       session[:server_id] = @server.id
-      redirect "/servers/:slug"
+      redirect "/servers/#{@server.slug}"
     else
       redirect "/login"
     end
