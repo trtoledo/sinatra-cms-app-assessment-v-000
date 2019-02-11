@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   get '/login' do
     if logged_in?
-      redirect '/servers/#{@server.slug}'
+      redirect "/servers/#{@server.slug}"
     else
       erb :"/sessions/login"
     end

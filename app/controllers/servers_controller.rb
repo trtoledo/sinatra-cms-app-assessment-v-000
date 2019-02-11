@@ -8,7 +8,7 @@ class ServersController < ApplicationController
     # only managers can signup a server
     if  logged_in?
       # binding.pry
-      redirect "#{@server.slug}"
+      redirect "/servers/#{@server.slug}"
     else
     erb :'servers/new'
     end
@@ -21,7 +21,7 @@ class ServersController < ApplicationController
       @server.save
       session[:server_id] = @server.id #login
 
-      redirect '/servers/#{@server.slug}'
+      redirect "/servers/#{@server.slug}"
     else
       erb :'severs/new'
     end
