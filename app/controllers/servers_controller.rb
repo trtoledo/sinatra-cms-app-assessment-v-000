@@ -1,8 +1,10 @@
 class ServersController < ApplicationController
 
-  # get '/servers' do
-  #   "List of all servers"
-  # end
+  get '/servers' do
+    @server = Server.find(session[:server_id])
+    @servers = Server.all
+    erb :"servers/all"
+  end
 
   get '/servers/signup' do
     # only managers can signup a server
@@ -30,9 +32,12 @@ class ServersController < ApplicationController
 
   get '/servers/:slug' do
     # binding.pry
+    if  logged_in?
     @server = Server.find_by_slug(params[:slug])
     erb :"servers/show"
-
+    else
+    redirect "/login"
+    end
   end
 
   # get '/login' do
