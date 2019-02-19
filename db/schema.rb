@@ -26,15 +26,13 @@ ActiveRecord::Schema.define(version: 2019_01_16_024030) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "seats", force: :cascade do |t|
-    t.integer "position"
-    t.integer "table_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "sections", force: :cascade do |t|
     t.string "letter"
+    t.string "table1"
+    t.string "table2"
+    t.string "table3"
+    t.string "table4"
+    t.string "table5"
     t.integer "server_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -44,15 +42,7 @@ ActiveRecord::Schema.define(version: 2019_01_16_024030) do
     t.string "username"
     t.string "email"
     t.string "password_digest"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "shifts", force: :cascade do |t|
-    t.integer "number"
-    t.integer "start_time"
-    t.integer "end_time"
-    t.integer "manager_id"
+    t.string "section"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

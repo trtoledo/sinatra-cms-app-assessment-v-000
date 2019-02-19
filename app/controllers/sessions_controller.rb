@@ -18,23 +18,23 @@ class SessionsController < ApplicationController
     end
   end
 
-  get '/manager_login' do
-    if logged_in?
-      redirect '/'
-    else
-      erb :"/sessions/manager_login"
-    end
-  end
-
-  post '/manager_login' do
-    @manager = Manager.find_by(:username => params[:username])
-    if @manager && @manager.authenticate(params[:password])
-      session[:manager_id] = @manager.id
-      redirect "/"
-    else
-      redirect "/manager_login"
-    end
-  end
+  # get '/manager_login' do
+  #   if logged_in?
+  #     redirect '/'
+  #   else
+  #     erb :"/sessions/manager_login"
+  #   end
+  # end
+  #
+  # post '/manager_login' do
+  #   @manager = Manager.find_by(:username => params[:username])
+  #   if @manager && @manager.authenticate(params[:password])
+  #     session[:manager_id] = @manager.id
+  #     redirect "/"
+  #   else
+  #     redirect "/manager_login"
+  #   end
+  # end
 
   get '/logout' do
     if logged_in?
