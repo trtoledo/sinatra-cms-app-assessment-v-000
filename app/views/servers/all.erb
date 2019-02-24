@@ -1,7 +1,7 @@
 <h2>Servers List</h2>
 <ul>
 <% @servers.each do |server| %>
-  <a class="button" href="/server/<%=@server.slug%>"><%=server.username%></a>
+  <a class="button" href="/servers/<%=@server.slug%>"><%=server.username%></a>
    <% end %>
 
 </ul>

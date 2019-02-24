@@ -17,7 +17,7 @@ class ServersController < ApplicationController
   end
 
   post '/servers' do
-    # binding.pry
+    binding.pry
     if !params[:username].empty? && !params[:email].empty? && !params[:password].empty? && !params[:section].empty?
       @server = Server.new(:username => params[:username], :email => params[:email], :password => params[:password], :section => params[:section])
       @server.save
@@ -31,9 +31,10 @@ class ServersController < ApplicationController
   end
 
   get '/servers/:slug' do
-    # binding.pry
+     # binding.pry
     if  logged_in?
     @server = Server.find_by_slug(params[:slug])
+    # @section = Section.find_by(params[:section])
     erb :"servers/show"
     else
     redirect "/login"

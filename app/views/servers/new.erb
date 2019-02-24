@@ -15,8 +15,11 @@
   </p>
   <p>
     <lable for="section">Section:</lable>
-    <input type="text" name="section" id="section"/>
-  </p>
+    <% Section.all.each do |section| %>
+     <label><%= section.letter %></label>
+    <input id="<%= section.letter %>" type="checkbox" name="section[]" value="<%= section.id %>">
+    <% end %></p>
+
 
 
   <input type="submit" id="submit" placeholder="Signup" />
