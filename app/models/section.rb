@@ -7,4 +7,7 @@ class Section < ActiveRecord::Base
       section.server.nil?
     end
   end
+
+  
+
 end

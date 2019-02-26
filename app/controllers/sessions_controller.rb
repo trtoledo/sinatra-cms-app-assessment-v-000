@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
     @server = Server.find_by(:username => params[:username])
     if @server && @server.authenticate(params[:password])
       session[:server_id] = @server.id
+      # @tables = Table.find_by(:secion_id => params[:section_id])
       redirect "/servers/#{@server.slug}"
     else
       redirect "/login"

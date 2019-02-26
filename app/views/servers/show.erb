@@ -3,22 +3,20 @@
 <h3>Name: <%= @server.username%></h3>
 </p>
 <h3>Email: <%= @server.email%></h3>
-<h3>Section: <%= @server.sections%></h3>
+
 
 <ul>
 <% @server.sections.each do |section| %>
-  <h3>Section: <%=section.letter%></h3>
-  <% section.tables.each do |table| %>
-  <%table.number%>
-
-   <li><a href="/tables/<%= table.id %>"> <%= table.id %> </a></li>
+  <h3>Section(s): <%=section.letter%></h3>
+  <% Table.section_tables("section_id").each do |table| %>
+  <li><a class="button" href="/tables/<%= table.id %>"> <%= table.number %> </a></li>
    <% end %>
 
 <% end %>
 </ul>
 
 
-<a class="button" href="/orders/new">Start an Order</a>
+
 
 
 <ul>

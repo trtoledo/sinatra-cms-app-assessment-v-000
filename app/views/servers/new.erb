@@ -15,7 +15,7 @@
   </p>
   <p>
     <label for="section">Section:</label>
-    <% Section.available .each do |section| %>
+    <% Section.available.each do |section| %>
      <label><%= section.letter %></label>
     <input id="<%= section.letter %>" type="checkbox" name="section[]" value="<%= section.id %>"/>
     <% end %>

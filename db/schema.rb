@@ -20,11 +20,6 @@ ActiveRecord::Schema.define(version: 2019_01_16_024030) do
 
   create_table "sections", force: :cascade do |t|
     t.string "letter"
-    t.string "table1"
-    t.string "table2"
-    t.string "table3"
-    t.string "table4"
-    t.string "table5"
     t.integer "server_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

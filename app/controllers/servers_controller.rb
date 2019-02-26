@@ -32,10 +32,12 @@ class ServersController < ApplicationController
   end
 
   get '/servers/:slug' do
-     # binding.pry
+      # binding.pry
     if  logged_in?
     @server = Server.find_by_slug(params[:slug])
     # @section = Section.find_by(params[:section])
+    # @tables = Table.
+
     erb :"servers/show"
     else
     redirect "/login"
