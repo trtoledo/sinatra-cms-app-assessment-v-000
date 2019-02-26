@@ -2,26 +2,25 @@
 
 <form action="/servers" method="POST">
   <p>
-    <lable for="email">Email:</lable>
+    <label for="email">Email:</label>
     <input type="text" name="email" id="email"/>
   </p>
   <p>
-    <lable for="username">Username:</lable>
+    <label for="username">Username:</label>
     <input type="text" name="username" />
   </p>
   <p>
-    <lable for="password">Password:</lable>
+    <label for="password">Password:</label>
     <input type="text" name="password" id="password"/>
   </p>
   <p>
-    <lable for="section">Section:</lable>
-    <% Section.all.each do |section| %>
+    <label for="section">Section:</label>
+    <% Section.available .each do |section| %>
      <label><%= section.letter %></label>
-    <input id="<%= section.letter %>" type="checkbox" name="section[]" value="<%= section.id %>">
-    <% end %></p>
+    <input id="<%= section.letter %>" type="checkbox" name="section[]" value="<%= section.id %>"/>
+    <% end %>
+  </p>
 
-
-
-  <input type="submit" id="submit" placeholder="Signup" />
+  <input type="submit" id="submit" value="Signup" />
 
 </form>

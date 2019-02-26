@@ -17,10 +17,11 @@ class ServersController < ApplicationController
   end
 
   post '/servers' do
-    binding.pry
+    # binding.pry
     if !params[:username].empty? && !params[:email].empty? && !params[:password].empty? && !params[:section].empty?
-      @server = Server.new(:username => params[:username], :email => params[:email], :password => params[:password], :section => params[:section])
+      @server = Server.new(:username => params[:username], :email => params[:email], :password => params[:password], :section_ids => params[:section])
       @server.save
+      #How to ralate with the Section table?
       session[:server_id] = @server.id #login
 
       redirect "/servers/#{@server.slug}"
