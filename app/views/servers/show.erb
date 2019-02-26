@@ -8,7 +8,7 @@
 <ul>
 <% @server.sections.each do |section| %>
   <h3>Section(s): <%=section.letter%></h3>
-  <% Table.section_tables("section_id").each do |table| %>
+  <% Table.section_tables("#{:section_id}").each do |table| %>
   <li><a class="button" href="/tables/<%= table.id %>"> <%= table.number %> </a></li>
    <% end %>
 
