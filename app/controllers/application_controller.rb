@@ -24,6 +24,14 @@ class ApplicationController < Sinatra::Base
       session.clear
     end
 
+    # def self.username_already_exists?
+    #   Server.find_by(username: params["username"])
+    # end
+    #
+    # def self.email_already_exists?
+    #   Server.find_by(email: params["email"])
+    # end
+
   end
 
 

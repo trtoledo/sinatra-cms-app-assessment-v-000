@@ -1,7 +1,7 @@
 class ServersController < ApplicationController
 
   get '/servers' do
-    @server = Server.find(session[:server_id])
+     # binding.pry
     @servers = Server.all
     erb :"servers/all"
   end
@@ -18,16 +18,20 @@ class ServersController < ApplicationController
 
   post '/servers' do
     # binding.pry
+    # if Server.find_by(username: params["username"]) || Server.find_by(email: params["email"])
+    #   erb :'servers/signup_warning'
+    # else
     if !params[:username].empty? && !params[:email].empty? && !params[:password].empty? && !params[:section].empty?
       @server = Server.new(:username => params[:username], :email => params[:email], :password => params[:password], :section_ids => params[:section])
       @server.save
-      #How to ralate with the Section table?
       session[:server_id] = @server.id #login
 
       redirect "/servers/#{@server.slug}"
     else
       erb :'severs/new'
     end
+    # end
+
 # binding.pry
   end
 

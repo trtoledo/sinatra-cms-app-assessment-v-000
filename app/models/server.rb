@@ -12,4 +12,6 @@ class Server < ActiveRecord::Base
       self.find {|i| i.slug == username}
   end
 
+
+
 end
