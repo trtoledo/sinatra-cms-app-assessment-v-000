@@ -9,7 +9,6 @@ class ServersController < ApplicationController
   get '/servers/signup' do
     # only managers should be able to signup a server
     if  logged_in?
-      # binding.pry
       redirect "/servers/#{current_user.slug}"
     else
     erb :'servers/new'
@@ -31,16 +30,17 @@ class ServersController < ApplicationController
           erb :'severs/new'
         end
     end
-
-# binding.pry
   end
 
   get '/servers/:slug' do
-      # binding.pry
     if  logged_in?
     set_server
-
-    erb :"servers/show"
+      if @server.id == current_user.id
+        erb :"servers/show"
+      else
+        puts "You can only access your page"
+         redirect "/"
+      end
     else
     redirect "/login"
     end
