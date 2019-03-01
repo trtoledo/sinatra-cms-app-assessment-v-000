@@ -7,10 +7,10 @@ class ServersController < ApplicationController
   end
 
   get '/servers/signup' do
-    # only managers can signup a server
+    # only managers should be able to signup a server
     if  logged_in?
       # binding.pry
-      redirect "/servers/#{@server.slug}"
+      redirect "/servers/#{current_user.slug}"
     else
     erb :'servers/new'
     end
@@ -18,19 +18,19 @@ class ServersController < ApplicationController
 
   post '/servers' do
     # binding.pry
-    # if Server.find_by(username: params["username"]) || Server.find_by(email: params["email"])
-    #   erb :'servers/signup_warning'
-    # else
-    if !params[:username].empty? && !params[:email].empty? && !params[:password].empty? && !params[:section].empty?
-      @server = Server.new(:username => params[:username], :email => params[:email], :password => params[:password], :section_ids => params[:section])
-      @server.save
-      session[:server_id] = @server.id #login
-
-      redirect "/servers/#{@server.slug}"
+    if Server.find_by(username: params["username"]) || Server.find_by(email: params["email"])
+      erb :'servers/signup_warning'
     else
-      erb :'severs/new'
+        if !params[:username].empty? && !params[:email].empty? && !params[:password].empty? && !params[:section].empty?
+          @server = Server.new(:username => params[:username], :email => params[:email], :password => params[:password], :section_ids => params[:section])
+          @server.save
+          session[:server_id] = @server.id #login
+
+          redirect "/servers/#{@server.slug}"
+        else
+          erb :'severs/new'
+        end
     end
-    # end
 
 # binding.pry
   end
@@ -38,15 +38,43 @@ class ServersController < ApplicationController
   get '/servers/:slug' do
       # binding.pry
     if  logged_in?
-    @server = Server.find_by_slug(params[:slug])
-    # @section = Section.find_by(params[:section])
-    # @tables = Table.
+    set_server
 
     erb :"servers/show"
     else
     redirect "/login"
     end
   end
+
+  get '/servers/:slug/edit' do
+
+    if logged_in?
+         set_server
+         if @server.id == current_user.id
+            erb :"servers/edit_server"
+         else
+            puts "You can only edit your profile"
+            redirect "/servers/#{@server.slug}"
+         end
+      else
+         redirect "/login"
+      end
+  end
+
+  patch '/servers/:slug' do
+      # binding.pry
+    set_server
+    if logged_in?
+      if @server.id == current_user.id
+        @server.update(email: params[:email], username: params[:username], password: params[:password])
+        redirect "/servers/#{@server.slug}"
+      else
+        redirect "/servers/#{@server.slug}"
+      end
+    else
+      redirect "/"
+    end
+   end
 
   # get '/login' do
   #   if logged_in?
@@ -74,7 +102,9 @@ class ServersController < ApplicationController
   #     redirect '/login'
   #   end
   # end
-
-
+  private
+  def set_server
+    @server = Server.find_by_slug(params[:slug])
+  end
 
 end

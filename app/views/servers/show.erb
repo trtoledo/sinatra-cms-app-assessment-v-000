@@ -6,9 +6,10 @@
 
 
 <ul>
+
 <% @server.sections.each do |section| %>
   <h3>Section(s): <%=section.letter%></h3>
-  <% Table.section_tables("#{:section_id}").each do |table| %>
+  <% section.tables.each do |table| %>
   <li><a class="button" href="/tables/<%= table.id %>"> <%= table.number %> </a></li>
    <% end %>
 
@@ -21,6 +22,6 @@
 
 <ul>
 <a class="button" href="/logout">Logout</a>
-<a class="button" href="/server/<%=@server.slug%>/edit">Edit your profile</a>
+<a class="button" href="/servers/<%=@server.slug%>/edit">Edit your profile</a>
 <p><a class="button" href="/">Home</a><p/>
 </ul>

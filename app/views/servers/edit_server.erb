@@ -1,0 +1,27 @@
+<h2> Edit your Page</h2>
+
+<form action="/servers/<%=@server.slug%>" method="POST">
+  <input type="hidden" name="_method" value="patch"
+  <p>
+    <label for="email">Email:</label>
+    <input type="text" name="email" id="email" value="<%=@server.email %>"/>
+  </p>
+  <p>
+    <label for="username">Username:</label>
+    <input type="text" name="username" value="<%=@server.username %>"/>
+  </p>
+  <p>
+    <label for="password">Password:</label>
+    <input type="text" name="password" id="password"/>
+  </p>
+  <p>
+    <label for="section">Section:</label>
+    <% Section.available.each do |section| %>
+     <label><%= section.letter %></label>
+    <input id="<%= section.letter %>" type="checkbox" name="section[]" value="<%= section.id %>"/>
+    <% end %>
+  </p>
+
+  <input type="submit" id="submit" value="Save" />
+
+</form>

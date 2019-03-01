@@ -9,11 +9,11 @@ class Table < ActiveRecord::Base
       self.find {|i| i.slug == number}
   end
 
-  def self.section_tables(section)
-    all.select do |table|
-      table.section_id = section
-    end
-  end
+  # def self.section_tables(section)
+  #   all.select do |table|
+  #     table.section_id = section
+  #   end
+  # end
 
 
 end
