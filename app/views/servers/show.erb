@@ -24,4 +24,8 @@
 <a class="button" href="/logout">Logout</a>
 <a class="button" href="/servers/<%=@server.slug%>/edit">Edit your profile</a>
 <p><a class="button" href="/">Home</a><p/>
+<p><form class="submit" action="/servers/<%=@server.slug%>" method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <input type="submit" name="" value="Delete this server">
+  </form><p/>
 </ul>

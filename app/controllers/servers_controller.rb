@@ -7,7 +7,6 @@ class ServersController < ApplicationController
   end
 
   get '/servers/signup' do
-    # only managers should be able to signup a server
     if  logged_in?
       redirect "/servers/#{current_user.slug}"
     else
@@ -53,7 +52,7 @@ class ServersController < ApplicationController
          if @server.id == current_user.id
             erb :"servers/edit_server"
          else
-            puts "You can only edit your profile"
+            puts "You can only edit your profile" #warning
             redirect "/servers/#{@server.slug}"
          end
       else
@@ -72,36 +71,25 @@ class ServersController < ApplicationController
         redirect "/servers/#{@server.slug}"
       end
     else
-      redirect "/"
+      redirect "/login"
     end
    end
 
-  # get '/login' do
-  #   if logged_in?
-  #     redirect '/tweets'
-  #   else
-  #     erb :"/sessions/login"
-  #   end
-  # end
-  #
-  # post '/login' do
-  #   @server = Server.find_by(:username => params[:username])
-  #   if @server && @server.authenticate(params[:password])
-  #     session[:server_id] = @server.id
-  #     redirect "/servers/:slug"
-  #   else
-  #     redirect "/login"
-  #   end
-  # end
+   delete '/servers/:slug' do
+     set_server
+     if logged_in?
+       if @server.id == current_user.id
+         @server.destroy
+         redirect "/"
+       else
+          puts "You can only delete your profile" #warning
+          redirect "/servers/#{@server.slug}"
+       end
+    else
+       redirect "/"
+    end
+   end
 
-  # get '/logout' do
-  #   if logged_in?
-  #     logout!
-  #     redirect '/login'
-  #   else
-  #     redirect '/login'
-  #   end
-  # end
   private
   def set_server
     @server = Server.find_by_slug(params[:slug])
