@@ -47,9 +47,4 @@ class SessionsController < ApplicationController
     end
   end
 
-
-
-
-
-
 end

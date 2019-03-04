@@ -37,8 +37,8 @@ class ServersController < ApplicationController
       if @server.id == current_user.id
         erb :"servers/show"
       else
-        puts "You can only access your page"
-         redirect "/"
+        puts "You can only access your page" ## WARNING:
+         redirect "/servers/#{current_user.slug}"
       end
     else
     redirect "/login"
@@ -53,7 +53,7 @@ class ServersController < ApplicationController
             erb :"servers/edit_server"
          else
             puts "You can only edit your profile" #warning
-            redirect "/servers/#{@server.slug}"
+            redirect "/servers/#{current_user.slug}"
          end
       else
          redirect "/login"
