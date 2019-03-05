@@ -1,5 +1,6 @@
 class ServersController < ApplicationController
 
+
   get '/servers' do
      # binding.pry
     @servers = Server.all
@@ -37,7 +38,7 @@ class ServersController < ApplicationController
       if @server.id == current_user.id
         erb :"servers/show"
       else
-        puts "You can only access your page" ## WARNING:
+        flash[:message] = "You can only show page your profile"
          redirect "/servers/#{current_user.slug}"
       end
     else
@@ -52,7 +53,7 @@ class ServersController < ApplicationController
          if @server.id == current_user.id
             erb :"servers/edit_server"
          else
-            puts "You can only edit your profile" #warning
+            flash[:message] = "You can only edit your profile"
             redirect "/servers/#{current_user.slug}"
          end
       else
@@ -82,7 +83,7 @@ class ServersController < ApplicationController
          @server.destroy
          redirect "/"
        else
-          puts "You can only delete your profile" #warning
+          flash[:message] = "You can only delete your profile"
           redirect "/servers/#{@server.slug}"
        end
     else
