@@ -35,7 +35,7 @@ class ServersController < ApplicationController
   get '/servers/:slug' do
     if  logged_in?
     set_server
-      if @server.id == current_user.id
+      if set_logged_server?
         erb :"servers/show"
       else
         flash[:message] = "You can only show page your profile"
@@ -50,7 +50,7 @@ class ServersController < ApplicationController
 
     if logged_in?
          set_server
-         if @server.id == current_user.id
+         if set_logged_server?
             erb :"servers/edit_server"
          else
             flash[:message] = "You can only edit your profile"
@@ -65,7 +65,7 @@ class ServersController < ApplicationController
       # binding.pry
     set_server
     if logged_in?
-      if @server.id == current_user.id
+      if set_logged_server?
         @server.update(email: params[:email], username: params[:username], password: params[:password])
         redirect "/servers/#{@server.slug}"
       else
@@ -79,7 +79,7 @@ class ServersController < ApplicationController
    delete '/servers/:slug' do
      set_server
      if logged_in?
-       if @server.id == current_user.id
+       if set_logged_server?
          @server.destroy
          redirect "/"
        else
@@ -95,5 +95,7 @@ class ServersController < ApplicationController
   def set_server
     @server = Server.find_by_slug(params[:slug])
   end
+
+
 
 end

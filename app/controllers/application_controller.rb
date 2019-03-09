@@ -24,6 +24,11 @@ class ApplicationController < Sinatra::Base
     def logout!
       session.clear
     end
+
+    def set_logged_server?
+      @server.id == current_user.id
+    end
+
   end
 
 
