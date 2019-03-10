@@ -7,9 +7,11 @@ class TablesController < ApplicationController
       if set_logged_server?
     erb :"tables/show"
       else
+        flash[:message] = "You can only access your tables!"
         redirect "/servers/#{current_user.slug}"
       end
     else
+      flash[:message] = "You must login to access your table`s page!"
       redirect "/login"
     end
   end

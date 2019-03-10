@@ -8,6 +8,4 @@ class Section < ActiveRecord::Base
     end
   end
 
-  
-
 end

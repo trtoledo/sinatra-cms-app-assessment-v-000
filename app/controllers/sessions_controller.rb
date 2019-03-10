@@ -13,6 +13,7 @@ class SessionsController < ApplicationController
       session[:server_id] = @server.id
       redirect "/servers/#{@server.slug}"
     else
+      flash[:message] = "Your Username or your password are incorrect. Please try again."
       redirect "/login"
     end
   end

@@ -2,7 +2,6 @@ class ServersController < ApplicationController
 
 
   get '/servers' do
-     # binding.pry
     @servers = Server.all
     erb :"servers/all"
   end
@@ -16,7 +15,6 @@ class ServersController < ApplicationController
   end
 
   post '/servers' do
-    # binding.pry
     if Server.find_by(username: params["username"]) || Server.find_by(email: params["email"])
       erb :'servers/signup_warning'
     else
@@ -38,10 +36,11 @@ class ServersController < ApplicationController
       if set_logged_server?
         erb :"servers/show"
       else
-        flash[:message] = "You can only show page your profile"
+        flash[:message] = "You can only access your profile!"
          redirect "/servers/#{current_user.slug}"
       end
     else
+      flash[:message] = "You must login to access your page!"
     redirect "/login"
     end
   end
@@ -62,7 +61,6 @@ class ServersController < ApplicationController
   end
 
   patch '/servers/:slug' do
-      # binding.pry
     set_server
     if logged_in?
       if set_logged_server?
@@ -83,7 +81,7 @@ class ServersController < ApplicationController
          @server.destroy
          redirect "/"
        else
-          flash[:message] = "You can only delete your profile"
+          flash[:message] = "You can only delete your own profile!"
           redirect "/servers/#{@server.slug}"
        end
     else
