@@ -29,6 +29,10 @@ class ApplicationController < Sinatra::Base
       @server.id == current_user.id
     end
 
+    def set_server
+      @server = Server.find_by_slug(params[:slug])
+    end
+
   end
 
 

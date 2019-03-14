@@ -1,0 +1,35 @@
+#all tips from the current_user
+<% if flash[:message] %>
+  <h3><%= flash[:message]%></h3>
+<% end %>
+<h2><%= @server.username%>`s Tips</h2>
+<p>
+<h3>Name: <%= @server.username%></h3>
+</p>
+<h3>Email: <%= @server.email%></h3>
+
+
+<ul>
+
+<% @server.sections.each do |section| %>
+  <h3>Section(s): <%=section.letter%></h3>
+    <% section.tables.each do |table| %>
+    <h4>Tables: <%=table.number%></h4>
+      <% @server.tips.each do |tip| %>
+      <li><a class="button" href="/tips/<%=@server.slug%>/edit">Amount: Usd <%= tip.amount %> </a></li>
+   <% end %>
+  <% end %>
+<% end %>
+</ul>
+
+
+<ul>
+
+<p><a class="button" href="/">Home</a><p/>
+  <a class="button" href="/tips/new">Insert your new tip</a>
+
+
+</ul>
+<br>
+<a class="button" href="/servers/<%=@server.slug%>"><%=@server.username%>`s Home pa`</a>
+</br>

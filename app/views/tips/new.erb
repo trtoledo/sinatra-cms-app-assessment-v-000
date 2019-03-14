@@ -1,0 +1,29 @@
+<% if flash[:message] %>
+  <h3><%= flash[:message]%></h3>
+<% end %>
+<h2> Insert your new tip.</h2>
+
+<form action="/tips" method="POST">
+  <p>
+    <label for="amount">Amount:</label>
+    <input type="text" name="amount" id="amount"/>
+  </p>
+
+  <ul>
+
+  <% @server.sections.each do |section| %>
+    <h3>Section(s): <%=section.letter%></h3>
+    <% section.tables.each do |table| %>
+
+    <li><label>Table: <%= table.number %></label>
+    <input id="<%= table.number %>" type="checkbox" name="table_number" value="<%= table.id %>"/></li>
+     <% end %>
+
+  <% end %>
+  </ul>
+
+
+
+  <input type="submit" id="submit" value="Submit" />
+
+</form>

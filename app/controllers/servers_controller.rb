@@ -90,9 +90,9 @@ class ServersController < ApplicationController
    end
 
   private
-  def set_server
-    @server = Server.find_by_slug(params[:slug])
-  end
+  # def set_server
+  #   @server = Server.find_by_slug(params[:slug])
+  # end
 
 
 
