@@ -11,7 +11,7 @@
 
   <ul>
 
-  <% @server.sections.each do |section| %>
+  <% current_user.sections.each do |section| %>
     <h3>Section(s): <%=section.letter%></h3>
     <% section.tables.each do |table| %>
 

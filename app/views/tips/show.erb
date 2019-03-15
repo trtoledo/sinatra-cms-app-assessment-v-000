@@ -8,28 +8,17 @@
 </p>
 <h3>Email: <%= @server.email%></h3>
 
-
 <ul>
-
-<% @server.sections.each do |section| %>
-  <h3>Section(s): <%=section.letter%></h3>
-    <% section.tables.each do |table| %>
-    <h4>Tables: <%=table.number%></h4>
-      <% @server.tips.each do |tip| %>
+      <% current_user.tips.each do |tip| %>
+      <h4>Table: <%=tip.table_id%></h4>
       <li><a class="button" href="/tips/<%=@server.slug%>/edit">Amount: Usd <%= tip.amount %> </a></li>
    <% end %>
-  <% end %>
-<% end %>
 </ul>
-
 
 <ul>
-
 <p><a class="button" href="/">Home</a><p/>
   <a class="button" href="/tips/new">Insert your new tip</a>
-
-
 </ul>
 <br>
-<a class="button" href="/servers/<%=@server.slug%>"><%=@server.username%>`s Home pa`</a>
+<a class="button" href="/servers/<%=@server.slug%>"><%=@server.username%>`s Home page</a>
 </br>

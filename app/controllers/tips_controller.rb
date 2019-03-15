@@ -1,20 +1,18 @@
 class TipsController < ApplicationController
 
   get '/tips' do
-    # if  logged_in?
-    # @tips = current_user.Tip.all
-    # erb :"tips/show"
-    # else
-    #   flash[:message] = "You can only access your tips!"
-    #    redirect "/servers/#{current_user.slug}"
-    #
-    # end
+    if  logged_in?
+    @tips = Tip.all
+    erb :"tips/all"
+    else
+      flash[:message] = "You have to login to access the tips list!"
+       redirect "/login"
+    end
 
   end
 
   get '/tips/new' do
     if  logged_in?
-      @server = current_user
         erb :"tips/new"
     else
       flash[:message] = "You have to login to insert your tips!"
@@ -28,9 +26,9 @@ class TipsController < ApplicationController
     #   erb :'tips/new'
     # else
         if !params[:amount].empty? && !params[:table_number].empty?
-          @tip = Tip.new(:amount => params[:amount], :table_id => params[:table_number], :server_id => [current_user.id])
+          @tip = Tip.new(:amount => params[:amount], :table_id => params[:table_number], :server_id => current_user.id)
           @tip.save
-          # binding.pry
+            # binding.pry
 
           redirect "/tips/#{current_user.slug}/all"
         else
