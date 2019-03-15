@@ -1,12 +1,10 @@
-<% if flash[:message] %>
-  <h3><%= flash[:message]%></h3>
-<% end %>
-<h2> Insert your new tip.</h2>
+<h2> Edit your tip.</h2>
 
-<form action="/tips" method="POST">
+<form action="/tips/<%=@tip.id%>" method="POST">
+  <input type="hidden" name="_method" value="patch"
   <p>
     <label for="amount">Amount:</label>
-    <input type="text" name="amount" id="amount"/>
+    <input type="text" name="amount" id="amount" value="<%= @tip.amount%>"/>
   </p>
   <ul>
   <% current_user.sections.each do |section| %>

@@ -1,4 +1,3 @@
-#all tips from the current_user
 <% if flash[:message] %>
   <h3><%= flash[:message]%></h3>
 <% end %>
@@ -9,16 +8,28 @@
 <h3>Email: <%= @server.email%></h3>
 
 <ul>
-      <% current_user.tips.each do |tip| %>
-      <h4>Table: <%=tip.table_id%></h4>
-      <li><a class="button" href="/tips/<%=@server.slug%>/edit">Amount: Usd <%= tip.amount %> </a></li>
-   <% end %>
-</ul>
+  <% current_user.tips.each do |tip| %>
+  <h4>Table: <%=tip.table_id%></h4>
 
+  <li><a class="button" href="/tips/<%=@server.slug%>/edit">Amount: Usd <%= tip.amount %> </a></li>
+  <form class="submit" action="/tips/<%=tip.id%>" method="post">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" name="" value="Delete this tip">
+    </form>
+   <% end %>
+
+</ul>
+<br>
 <ul>
-<p><a class="button" href="/">Home</a><p/>
+  <p><a class="button" href="/">Home</a><p/>
   <a class="button" href="/tips/new">Insert your new tip</a>
 </ul>
+</br>
 <br>
 <a class="button" href="/servers/<%=@server.slug%>"><%=@server.username%>`s Home page</a>
 </br>
+
+<p><form class="submit" action="/servers/<%=@server.slug%>" method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <input type="submit" name="" value="Delete this server">
+  </form><p/>

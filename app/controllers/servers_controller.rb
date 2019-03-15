@@ -33,6 +33,7 @@ class ServersController < ApplicationController
   get '/servers/:slug' do
     if  logged_in?
     set_server
+    # binding.pry
       if set_logged_server?
         erb :"servers/show"
       else
@@ -67,7 +68,7 @@ class ServersController < ApplicationController
         @server.update(email: params[:email], username: params[:username], password: params[:password])
         redirect "/servers/#{@server.slug}"
       else
-        redirect "/servers/#{@server.slug}"
+        redirect "/servers/#{current_user.slug}"
       end
     else
       redirect "/login"
@@ -90,9 +91,9 @@ class ServersController < ApplicationController
    end
 
   private
-  # def set_server
-  #   @server = Server.find_by_slug(params[:slug])
-  # end
+  def set_server
+    @server = Server.find_by_slug(params[:slug])
+  end
 
 
 

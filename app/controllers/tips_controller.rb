@@ -21,22 +21,16 @@ class TipsController < ApplicationController
   end
 
   post '/tips' do
-    # if Tip.find_by(username: params["username"]) || Server.find_by(email: params["email"])
-    #   flash[:message] = "You must to input the Amount and the Table Number to insert your tips!"
-    #   erb :'tips/new'
-    # else
-        if !params[:amount].empty? && !params[:table_number].empty?
-          @tip = Tip.new(:amount => params[:amount], :table_id => params[:table_number], :server_id => current_user.id)
-          @tip.save
+    if !params[:amount].empty? && !params[:table_number].empty?
+      @tip = Tip.new(:amount => params[:amount], :table_id => params[:table_number], :server_id => current_user.id)
+      @tip.save
             # binding.pry
-
           redirect "/tips/#{current_user.slug}/all"
         else
           flash[:message] = "You must to input the Amount and the Table Number to insert your tips!"
           erb :'tips/new'
         end
-    # end
-  end
+   end
 
   get '/tips/:slug/all' do
     if  logged_in?
@@ -56,8 +50,53 @@ class TipsController < ApplicationController
   end
 
   get '/tips/:slug/edit' do
-
+    if logged_in?
+      set_server
+      # binding.pry
+      @tip = Tip.find_by(:server_id => @server.id)
+      if set_logged_server?
+        # binding.pry 
+        erb :"tips/edit_tip"
+      else
+        flash[:message] = "You can only edit your tips!"
+        redirect "/tips/#{current_user.slug}/all"
+      end
+    else
+      redirect "/login"
+    end
   end
+
+  patch '/tips/:id' do
+    @tip = Tip.find(params[:id])
+    @server = Server.find_by(:id => @tip.server_id)
+    if logged_in?
+      if set_logged_server?
+        @tip.update(amount: params[:amount], table_id: params[:table_number], server_id: @server.id )
+        redirect "/tips/#{@server.slug}/all"
+      else
+        redirect "/tips/#{current_user.slug}/all"
+      end
+    else
+      redirect "/login"
+    end
+  end
+
+  delete '/tips/:id' do
+    @tip = Tip.find(params[:id])
+    @server = Server.find_by(:id => @tip.server_id)
+    if logged_in?
+      if set_logged_server?
+        @tip.destroy
+        redirect "/tips/#{@server.slug}/all"
+      else
+         flash[:message] = "You can only delete your own tip!"
+         redirect "/tips/#{current_user.slug}/all"
+      end
+   else
+      redirect "/login"
+   end
+  end
+
 
 
 end
