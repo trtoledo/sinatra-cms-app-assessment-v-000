@@ -95,6 +95,4 @@ class ServersController < ApplicationController
     @server = Server.find_by_slug(params[:slug])
   end
 
-
-
 end

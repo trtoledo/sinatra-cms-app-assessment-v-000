@@ -85,7 +85,6 @@ class TipsController < ApplicationController
   delete '/tips/:id' do
     set_tip_with_id
     set_server_with_server_id
-
     if logged_in?
       if set_logged_server?
         @tip.destroy
