@@ -26,7 +26,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def set_logged_server?
-      @server.id == current_user.id
+      @server == current_user
     end
 
     def set_server

@@ -11,7 +11,7 @@
   <% current_user.tips.each do |tip| %>
   <h4>Table: <%=tip.table_id%></h4>
 
-  <li><a class="button" href="/tips/<%=@server.slug%>/edit">Amount: Usd <%= tip.amount %> </a></li>
+  <li><a class="button" href="/tips/<%=tip.id%>/edit">Amount: Usd <%= tip.amount %> </a></li>
   <form class="submit" action="/tips/<%=tip.id%>" method="post">
     <input type="hidden" name="_method" value="DELETE">
     <input type="submit" name="" value="Delete this tip">

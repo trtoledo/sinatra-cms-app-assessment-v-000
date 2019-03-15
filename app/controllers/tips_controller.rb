@@ -37,11 +37,10 @@ class TipsController < ApplicationController
     set_server
       if set_logged_server?
         # binding.pry
-
         erb :"tips/show"
       else
-        flash[:message] = "You can only access your profile!"
-         redirect "/servers/#{current_user.slug}"
+        flash[:message] = "You can only access your tips!"
+         redirect "/tips/#{current_user.slug}/all"
       end
     else
       flash[:message] = "You must login to access your page!"
@@ -49,13 +48,15 @@ class TipsController < ApplicationController
     end
   end
 
-  get '/tips/:slug/edit' do
+  get '/tips/:id/edit' do
     if logged_in?
-      set_server
+      set_tip_with_id
+      set_server_with_server_id
+      # set_server
       # binding.pry
-      @tip = Tip.find_by(:server_id => @server.id)
+      # @tip = Tip.find_by(:server_id => @server.id)
       if set_logged_server?
-        # binding.pry 
+        # binding.pry
         erb :"tips/edit_tip"
       else
         flash[:message] = "You can only edit your tips!"
@@ -67,8 +68,8 @@ class TipsController < ApplicationController
   end
 
   patch '/tips/:id' do
-    @tip = Tip.find(params[:id])
-    @server = Server.find_by(:id => @tip.server_id)
+    set_tip_with_id
+    set_server_with_server_id
     if logged_in?
       if set_logged_server?
         @tip.update(amount: params[:amount], table_id: params[:table_number], server_id: @server.id )
@@ -82,8 +83,9 @@ class TipsController < ApplicationController
   end
 
   delete '/tips/:id' do
-    @tip = Tip.find(params[:id])
-    @server = Server.find_by(:id => @tip.server_id)
+    set_tip_with_id
+    set_server_with_server_id
+
     if logged_in?
       if set_logged_server?
         @tip.destroy
@@ -97,6 +99,14 @@ class TipsController < ApplicationController
    end
   end
 
+  private
+  def set_tip_with_id
+    @tip = Tip.find(params[:id])
+  end
+
+  def set_server_with_server_id
+    @server = Server.find_by(:id => @tip.server_id)
+  end
 
 
 end
