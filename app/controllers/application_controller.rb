@@ -29,6 +29,15 @@ class ApplicationController < Sinatra::Base
       @server == current_user
     end
 
+    def redirect_if_not_allowed
+      if !set_logged_server?
+        flash[:message] = "You can only access your tips!"
+        redirect "/tips/#{current_user.slug}/all"
+      end
+
+    end
+
+
     def set_server
       @server = Server.find_by_slug(params[:slug])
     end

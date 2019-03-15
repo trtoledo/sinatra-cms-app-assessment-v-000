@@ -28,20 +28,22 @@ class TipsController < ApplicationController
           redirect "/tips/#{current_user.slug}/all"
         else
           flash[:message] = "You must to input the Amount and the Table Number to insert your tips!"
-          erb :'tips/new'
+          redirect "/tips/new"
         end
    end
 
   get '/tips/:slug/all' do
     if  logged_in?
     set_server
-      if set_logged_server?
-        # binding.pry
-        erb :"tips/show"
-      else
-        flash[:message] = "You can only access your tips!"
-         redirect "/tips/#{current_user.slug}/all"
-      end
+    redirect_if_not_allowed
+      # if redirect_if_not_allowed
+      #   # binding.pry
+      #   erb :"tips/show"
+      # else
+      #   flash[:message] = "You can only access your tips!"
+      #    redirect "/tips/#{current_user.slug}/all"
+      # end
+      erb :"tips/show"
     else
       flash[:message] = "You must login to access your page!"
     redirect "/login"
@@ -52,16 +54,18 @@ class TipsController < ApplicationController
     if logged_in?
       set_tip_with_id
       set_server_with_server_id
+      redirect_if_not_allowed
       # set_server
       # binding.pry
       # @tip = Tip.find_by(:server_id => @server.id)
-      if set_logged_server?
-        # binding.pry
-        erb :"tips/edit_tip"
-      else
-        flash[:message] = "You can only edit your tips!"
-        redirect "/tips/#{current_user.slug}/all"
-      end
+      # if set_logged_server?
+      #   # binding.pry
+      #   erb :"tips/edit_tip"
+      # else
+      #   flash[:message] = "You can only edit your tips!"
+      #   redirect "/tips/#{current_user.slug}/all"
+      # end
+      erb :"tips/edit_tip"
     else
       redirect "/login"
     end
@@ -104,7 +108,8 @@ class TipsController < ApplicationController
   end
 
   def set_server_with_server_id
-    @server = Server.find_by(:id => @tip.server_id)
+    # @server = Server.find_by(:id => @tip.server_id)
+    @server = @tip.server
   end
 
 

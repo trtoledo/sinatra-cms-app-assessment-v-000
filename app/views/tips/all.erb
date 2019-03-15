@@ -8,15 +8,13 @@
   <% @tips.each do |tip| %>
   <h4>Table number: <%=tip.table_id%></h4>
   <h3>Table: <%=tip.amount%></h3>
-  <% @server = Server.find_by(:id => @tip.server_id) %>
-  <h3>Server: <%=@server.username%></h3>
+  <h3>Server: <%=tip.server.username%></h3>
 
 
   <li><a class="button" href="/tips/<%=tip.id%>/edit">Amount: Usd <%= tip.amount %> </a></li>
-  <form class="submit" action="/tips/<%=tip.id%>" method="post">
-    <input type="hidden" name="_method" value="DELETE">
-    <input type="submit" name="" value="Delete this tip">
-    </form>
+
    <% end %>
 
 </ul>
+
+<h3>Total: <%=@tips.sum(:amount)%></h3>
